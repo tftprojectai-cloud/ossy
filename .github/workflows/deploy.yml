@@ -1,8 +1,9 @@
-name: Deploy SolidCraft to GitHub Pages
+name: Deploy SolidCraft Web App to GitHub Pages
 
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -28,10 +29,12 @@ jobs:
       - name: Install Trunk
         run: wget -qO- https://github.com/trunk-rs/trunk/releases/download/v0.18.2/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf - -C /usr/local/bin
 
-      - name: Build with Trunk
+      - name: Build SolidCraft Web Main App
         run: |
           cd apps/solidcraft-web
-          trunk build --release
+          # ลบไฟล์การตั้งค่า Trunk เดิมออกเพื่อไม่ให้มันบังคับ path ผิด
+          rm -f Trunk.toml
+          trunk build --release --dist dist --public-url "/solid-on/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
