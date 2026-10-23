@@ -34,7 +34,7 @@ jobs:
           cd apps/solidcraft-web
           # ลบไฟล์การตั้งค่า Trunk เดิมออกเพื่อไม่ให้มันบังคับ path ผิด
           rm -f Trunk.toml
-          trunk build --release --dist dist --public-url "/solid-on/"
+          trunk build --release --dist dist --public-url "/ossy/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
